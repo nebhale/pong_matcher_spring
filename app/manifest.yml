@@ -1,0 +1,5 @@
+---
+applications:
+  - name: springpong
+    buildpack: java_buildpack
+    path: build/libs/pongmatcher-0.1.0.jar
