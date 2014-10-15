@@ -11,6 +11,9 @@ buildscript {
 
 apply plugin: 'java'
 apply plugin: 'spring-boot'
+apply plugin: 'application'
+
+mainClassName = "org.pongmatcher.Application"
 
 repositories {
     mavenLocal()
