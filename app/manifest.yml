@@ -2,4 +2,4 @@
 applications:
   - name: springpong
     buildpack: java_buildpack
-    path: build/distributions/app.zip
+    path: build/libs/app.jar
