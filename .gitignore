@@ -1,3 +1,5 @@
 .gradle
 tags
 app/build
+.idea
+app.iml
