@@ -13,11 +13,14 @@ public class EveryResourceController {
     private MatchRequestRepository matchRequestRepository;
     @Autowired
     private MatchRepository matchRepository;
+    @Autowired
+    private ResultRepository resultRepository;
 
     @RequestMapping(value = "/all", method = RequestMethod.DELETE)
     public @ResponseBody void delete() {
         matchRequestRepository.deleteAll();
         matchRepository.deleteAll();
+        resultRepository.deleteAll();
     }
 }
 
