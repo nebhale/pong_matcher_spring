@@ -1,19 +1,29 @@
 package org.pongmatcher;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
 public class MatchRequest {
-  private final String id;
-  private final String requesterId;
+    @Id
+    private final String id;
+    private final String requesterId;
 
-  public MatchRequest(String id, String requesterId) {
-    this.id = id;
-    this.requesterId = requesterId;
-  }
+    protected MatchRequest() {
+        this.id = null;
+        this.requesterId = null;
+    }
 
-  public String getId() {
-    return id;
-  }
+    public MatchRequest(String id, String requesterId) {
+        this.id = id;
+        this.requesterId = requesterId;
+    }
 
-  public String getRequesterId() {
-    return requesterId;
-  }
+    public String getId() {
+        return id;
+    }
+
+    public String getRequesterId() {
+        return requesterId;
+    }
 }
