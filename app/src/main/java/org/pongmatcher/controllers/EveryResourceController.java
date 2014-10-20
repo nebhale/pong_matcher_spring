@@ -1,5 +1,8 @@
-package org.pongmatcher;
+package org.pongmatcher.controllers;
 
+import org.pongmatcher.repositories.MatchRepository;
+import org.pongmatcher.repositories.MatchRequestRepository;
+import org.pongmatcher.repositories.ResultRepository;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;

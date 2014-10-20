@@ -1,5 +1,6 @@
-package org.pongmatcher;
+package org.pongmatcher.repositories;
 
+import org.pongmatcher.domain.Result;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;

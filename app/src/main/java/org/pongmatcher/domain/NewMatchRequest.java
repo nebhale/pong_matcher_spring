@@ -1,4 +1,4 @@
-package org.pongmatcher;
+package org.pongmatcher.domain;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

@@ -1,5 +1,6 @@
-package org.pongmatcher;
+package org.pongmatcher.repositories;
 
+import org.pongmatcher.domain.Match;
 import org.springframework.data.repository.CrudRepository;
 
 public interface MatchRepository extends CrudRepository<Match, String> {

@@ -1,5 +1,9 @@
-package org.pongmatcher;
+package org.pongmatcher.controllers;
 
+import org.pongmatcher.domain.*;
+import org.pongmatcher.repositories.MatchRepository;
+import org.pongmatcher.repositories.MatchRequestRepository;
+import org.pongmatcher.repositories.ResultRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
