@@ -16,11 +16,7 @@ import java.util.UUID;
 @RestController
 public class MatchRequestController {
     @ResponseStatus(value = HttpStatus.NOT_FOUND)
-    class ResourceNotFoundException extends RuntimeException {
-        public ResourceNotFoundException(String message) {
-            super(message);
-        }
-    }
+    class ResourceNotFoundException extends RuntimeException {}
 
     @Autowired
     private MatchRequestRepository matchRequestRepository;
@@ -31,23 +27,12 @@ public class MatchRequestController {
 
     @RequestMapping(value = "/match_requests/{id}", method = RequestMethod.GET)
     public MatchRequest show(@PathVariable("id") String id) {
-        Optional<Match> unplayedMatch;
-        Iterable<Match> matches = this.matchRepository.findAll();
+        Match match = matchRepository.findByMatchRequest1IdOrMatchRequest2Id(id, id);
 
-        unplayedMatch = StreamSupport.stream(matches.spliterator(), false)
-                .filter(m -> m.getMatchRequest1Id().equals(id) || m.getMatchRequest2Id().equals(id))
-                .findFirst();
-
-        if (unplayedMatch.isPresent()) {
-            return new FulfilledMatchRequest(unplayedMatch.get().getId());
+        if (match == null) {
+            throw new ResourceNotFoundException();
         } else {
-            throw new ResourceNotFoundException(
-                    String.format(
-                            "No unplayed match available for match request id: %s -- Matches available: %s",
-                            id,
-                            matches.toString()
-                    )
-            );
+            return new FulfilledMatchRequest(match.getId());
         }
     }
 
