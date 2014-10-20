@@ -31,3 +31,7 @@ dependencies {
 task wrapper(type: Wrapper) {
     gradleVersion = "2.1"
 }
+
+jar {
+    archiveName = "app.jar"
+}
