@@ -8,15 +8,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.*;
 import java.util.UUID;
 
 @RestController
 public class MatchRequestController {
     @ResponseStatus(value = HttpStatus.NOT_FOUND)
-    class ResourceNotFoundException extends RuntimeException {}
+    class ResourceNotFoundException extends RuntimeException {
+    }
 
     @Autowired
     private MatchRequestRepository matchRequestRepository;
@@ -40,9 +39,16 @@ public class MatchRequestController {
     public MatchRequest save(@PathVariable("id") String id,
                              @RequestBody NewMatchRequest proposedMatchRequest) {
         MatchRequest persistingMatchRequest = new MatchRequest(id, proposedMatchRequest.getRequesterId());
-        this.matchRequestRepository.save(persistingMatchRequest);
+        matchRequestRepository.save(persistingMatchRequest);
 
-        Optional<MatchRequest> openMatchRequest = firstOpenMatchRequest(persistingMatchRequest.getRequesterId());
+        Player player = new Player(
+                persistingMatchRequest.getRequesterId(),
+                matchRepository,
+                matchRequestRepository,
+                resultRepository
+        );
+
+        Optional<MatchRequest> openMatchRequest = player.firstOpenMatchRequest();
 
         if (openMatchRequest.isPresent()) {
             recordMatch(openMatchRequest.get(), persistingMatchRequest);
@@ -51,43 +57,9 @@ public class MatchRequestController {
         return persistingMatchRequest;
     }
 
-    private Optional<MatchRequest> firstOpenMatchRequest(String playerId) {
-        return unfulfilledMatchRequests()
-                .filter(request -> !inappropriateOpponents(playerId).contains(request.getRequesterId()))
-                .findFirst();
-    }
-
-    private List<String> inappropriateOpponents(String playerId) {
-        List<String> list = previousOpponents(playerId);
-        list.add(playerId);
-        return list;
-    }
-
-    private List<String> previousOpponents(String playerId) {
-        return resultsInvolvingPlayer(playerId)
-                .map(result -> result.getWinnerId().equals(playerId) ? result.getLoserId() : result.getWinnerId())
-                .collect(Collectors.toList());
-    }
-
-    private Stream<Result> resultsInvolvingPlayer(String playerId) {
-        return StreamSupport.stream(
-                resultRepository.findAllByWinnerIdOrLoserId(playerId, playerId).spliterator(), false
-        );
-    }
-
     private void recordMatch(MatchRequest openMatchRequest, MatchRequest newMatchRequest) {
         matchRepository.save(
                 new Match(UUID.randomUUID().toString(), openMatchRequest.getId(), newMatchRequest.getId())
         );
-    }
-
-    private Stream<MatchRequest> unfulfilledMatchRequests() {
-        Iterable<MatchRequest> allRequests = matchRequestRepository.findAll();
-        return StreamSupport.stream(allRequests.spliterator(), false)
-                .filter(request -> notMatched(request.getId()));
-    }
-
-    private Boolean notMatched(String matchRequestId) {
-        return matchRepository.findByMatchRequest1IdOrMatchRequest2Id(matchRequestId, matchRequestId) == null;
     }
 }
