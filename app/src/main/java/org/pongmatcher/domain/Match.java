@@ -1,5 +1,7 @@
 package org.pongmatcher.domain;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -8,7 +10,10 @@ public class Match {
     @Id
     private final String id;
 
+    @JsonProperty("match_request_1_id")
     private final String matchRequest1Id;
+
+    @JsonProperty("match_request_2_id")
     private final String matchRequest2Id;
 
     protected Match() {
