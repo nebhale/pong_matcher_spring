@@ -6,6 +6,7 @@ import org.pongmatcher.repositories.ResultRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -19,6 +20,7 @@ public class ResultsController {
     @Autowired
     private ResultRepository resultRepository;
 
+    @Transactional
     @RequestMapping(value = "/results", method = RequestMethod.POST)
     public ResponseEntity<Result> save(@RequestBody NewResult newResult) {
         Result result = new Result(

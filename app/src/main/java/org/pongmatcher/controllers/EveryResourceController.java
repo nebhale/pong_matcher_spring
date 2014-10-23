@@ -3,6 +3,7 @@ package org.pongmatcher.controllers;
 import org.pongmatcher.repositories.MatchRepository;
 import org.pongmatcher.repositories.MatchRequestRepository;
 import org.pongmatcher.repositories.ResultRepository;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -19,6 +20,7 @@ public class EveryResourceController {
     @Autowired
     private ResultRepository resultRepository;
 
+    @Transactional
     @RequestMapping(value = "/all", method = RequestMethod.DELETE)
     public @ResponseBody void delete() {
         matchRequestRepository.deleteAll();

@@ -6,6 +6,7 @@ import org.pongmatcher.repositories.MatchRequestRepository;
 import org.pongmatcher.repositories.ResultRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -35,6 +36,7 @@ public class MatchRequestController {
         }
     }
 
+    @Transactional
     @RequestMapping(value = "/match_requests/{id}", method = RequestMethod.PUT)
     public MatchRequest save(@PathVariable("id") String id,
                              @RequestBody NewMatchRequest proposedMatchRequest) {

@@ -1,0 +1,25 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: pivotal
+      changes:
+        - createTable:
+            tableName: match_request
+            columns:
+              - column:
+                  name: id
+                  type: varchar(255)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: requester_id
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+  - include:
+      file: add-match.yaml
+      relativeToChangelogFile: true
+  - include:
+      file: add-result.yaml
+      relativeToChangelogFile: true

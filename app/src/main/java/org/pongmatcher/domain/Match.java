@@ -4,8 +4,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
+@Table(name="`match`")
 public class Match {
     @Id
     private final String id;
@@ -30,7 +32,7 @@ public class Match {
 
     @Override
     public String toString() {
-        return String.format("%s versus %s", id, matchRequest1Id, matchRequest2Id);
+        return String.format("%s versus %s", matchRequest1Id, matchRequest2Id);
     }
 
     public String getId() {
