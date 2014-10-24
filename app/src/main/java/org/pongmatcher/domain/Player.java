@@ -3,7 +3,9 @@ package org.pongmatcher.domain;
 import org.pongmatcher.repositories.MatchRepository;
 import org.pongmatcher.repositories.MatchRequestRepository;
 import org.pongmatcher.repositories.ResultRepository;
+import org.springframework.data.domain.Sort;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -33,9 +35,12 @@ public class Player {
     }
 
     private Stream<MatchRequest> unfulfilledMatchRequests() {
-        Iterable<MatchRequest> allRequests = matchRequestRepository.findAll();
+        List sortColumns = new ArrayList();
+        sortColumns.add("id");
+        Sort sort = new Sort(Sort.Direction.ASC, sortColumns);
+        Iterable<MatchRequest> allRequests = matchRequestRepository.findAll(sort);
         return StreamSupport.stream(allRequests.spliterator(), false)
-                .filter(request -> notMatched(request.getId()));
+                .filter(request -> notMatched(request.getUuid()));
     }
 
     private List<String> inappropriateOpponents() {

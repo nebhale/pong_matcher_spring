@@ -61,7 +61,7 @@ public class MatchRequestController {
 
     private void recordMatch(MatchRequest openMatchRequest, MatchRequest newMatchRequest) {
         matchRepository.save(
-                new Match(UUID.randomUUID().toString(), openMatchRequest.getId(), newMatchRequest.getId())
+                new Match(UUID.randomUUID().toString(), openMatchRequest.getUuid(), newMatchRequest.getUuid())
         );
     }
 }
