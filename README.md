@@ -19,7 +19,20 @@ Target your org / space.
 cf target -o myorg -s myspace
 ```
 
-Push this app.
+Sign up for a cleardb instance.
+
+```bash
+cf create-service cleardb spark mysql
+```
+
+Build the app.
+
+```bash
+cd app
+./gradlew build
+```
+
+Push the app. Its manifest assumes you called your ClearDB instance 'mysql'.
 
 ```bash
 cd app
@@ -37,6 +50,23 @@ Now follow the [interaction instructions][interaction].
 ## Running locally
 
 The following assumes you have a working Java 1.8 SDK installed.
+
+Install and start mysql:
+
+```bash
+brew install mysql
+mysql.server start
+mysql -u root
+```
+
+Create a database user and table in the MySQL REPL you just opened:
+
+```sql
+CREATE USER 'springpong'@'localhost' IDENTIFIED BY 'springpong';
+CREATE DATABASE pong_matcher_spring_development;
+GRANT ALL ON pong_matcher_spring_development.* TO 'springpong'@'localhost';
+exit
+```
 
 Start the application server:
 
