@@ -3,3 +3,5 @@ applications:
   - name: springpong
     buildpack: java_buildpack
     path: build/libs/app.jar
+    services:
+      - mysql
