@@ -1,4 +1,4 @@
-package org.pongmatcher.controllers;
+package org.pongmatcher.web;
 
 import org.pongmatcher.domain.Match;
 import org.pongmatcher.repositories.MatchRepository;
@@ -9,13 +9,17 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class MatchesController {
+final class MatchesController {
+
+    private final MatchRepository matchRepository;
 
     @Autowired
-    private MatchRepository matchRepository;
+    MatchesController(MatchRepository matchRepository) {
+        this.matchRepository = matchRepository;
+    }
 
-    @RequestMapping(value = "/matches/{id}", method = RequestMethod.GET)
-    public Match show(@PathVariable("id") String id) {
+    @RequestMapping(method = RequestMethod.GET, value = "/matches/{id}")
+    Match show(@PathVariable String id) {
         return matchRepository.findOne(id);
     }
 

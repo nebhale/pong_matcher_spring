@@ -5,21 +5,20 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
-public class MatchRequest {
-    @Id @GeneratedValue
-    private final Long id;
+public final class MatchRequest {
 
-    private final String uuid;
-    private final String requesterId;
+    @GeneratedValue
+    @Id
+    private volatile Long id;
 
-    protected MatchRequest() {
-        this.id = null;
-        this.uuid = null;
-        this.requesterId = null;
+    private volatile String uuid;
+
+    private volatile String requesterId;
+
+    MatchRequest() {
     }
 
     public MatchRequest(String uuid, String requesterId) {
-        this.id = null;
         this.uuid = uuid;
         this.requesterId = requesterId;
     }
@@ -31,4 +30,5 @@ public class MatchRequest {
     public String getRequesterId() {
         return requesterId;
     }
+
 }
