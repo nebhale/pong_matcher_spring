@@ -25,7 +25,7 @@ final class ResultsController {
     @Transactional
     @RequestMapping(method = RequestMethod.POST, value = "/results")
     ResponseEntity<Result> save(@RequestBody Result result) {
-        this.resultRepository.save(result);
+        this.resultRepository.saveAndFlush(result);
         return new ResponseEntity<>(result, HttpStatus.CREATED);
     }
 
