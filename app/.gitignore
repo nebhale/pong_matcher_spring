@@ -1,1 +1,4 @@
-/bin/
+target
+.idea/libraries
+.idea/tasks.xml
+.idea/workspace.xml
