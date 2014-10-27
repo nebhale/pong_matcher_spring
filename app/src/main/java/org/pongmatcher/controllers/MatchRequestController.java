@@ -14,16 +14,23 @@ import java.util.UUID;
 
 @RestController
 public class MatchRequestController {
+
+    @Autowired
+    MatchRequestController(MatchRequestRepository matchRequestRepository, MatchRepository matchRepository, ResultRepository resultRepository) {
+        this.matchRequestRepository = matchRequestRepository;
+        this.matchRepository = matchRepository;
+        this.resultRepository = resultRepository;
+    }
+
     @ResponseStatus(value = HttpStatus.NOT_FOUND)
     class ResourceNotFoundException extends RuntimeException {
     }
 
-    @Autowired
-    private MatchRequestRepository matchRequestRepository;
-    @Autowired
-    private MatchRepository matchRepository;
-    @Autowired
-    private ResultRepository resultRepository;
+    private final MatchRequestRepository matchRequestRepository;
+
+    private final MatchRepository matchRepository;
+
+    private final ResultRepository resultRepository;
 
     @RequestMapping(value = "/match_requests/{id}", method = RequestMethod.GET)
     public MatchRequest show(@PathVariable("id") String id) {

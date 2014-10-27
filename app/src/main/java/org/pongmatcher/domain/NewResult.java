@@ -15,6 +15,12 @@ public final class NewResult {
     NewResult() {
     }
 
+    public NewResult(String winnerId, String loserId, String matchId) {
+        this.winnerId = winnerId;
+        this.loserId = loserId;
+        this.matchId = matchId;
+    }
+
     public String getWinnerId() {
         return winnerId;
     }

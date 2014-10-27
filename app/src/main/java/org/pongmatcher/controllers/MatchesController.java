@@ -11,8 +11,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class MatchesController {
 
+    private final MatchRepository matchRepository;
+
     @Autowired
-    private MatchRepository matchRepository;
+    MatchesController(MatchRepository matchRepository) {
+        this.matchRepository = matchRepository;
+    }
 
     @RequestMapping(value = "/matches/{id}", method = RequestMethod.GET)
     public Match show(@PathVariable("id") String id) {

@@ -18,8 +18,12 @@ import java.util.UUID;
 @RestController
 public class ResultsController {
 
+    private final ResultRepository resultRepository;
+
     @Autowired
-    private ResultRepository resultRepository;
+    ResultsController(ResultRepository resultRepository) {
+        this.resultRepository = resultRepository;
+    }
 
     @Transactional
     @RequestMapping(value = "/results", method = RequestMethod.POST)
@@ -31,6 +35,6 @@ public class ResultsController {
                 newResult.getMatchId()
         );
         resultRepository.save(result);
-        return new ResponseEntity<Result>(result, HttpStatus.CREATED);
+        return new ResponseEntity<>(result, HttpStatus.CREATED);
     }
 }
