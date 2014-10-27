@@ -1,11 +1,14 @@
-package org.pongmatcher.controllers;
+package org.pongmatcher.web;
 
 import org.junit.Test;
 import org.pongmatcher.domain.Result;
 import org.pongmatcher.repositories.ResultRepository;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.servlet.MockMvc;
 
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -22,7 +25,7 @@ public final class ResultsControllerTest {
     private final MockMvc mockMvc = standaloneSetup(this.resultsController).build();
 
     @Test
-    public void save() throws Exception {
+    public void saveMvc() throws Exception {
         this.mockMvc.perform(post("/results")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{\"winner\": \"test-winner\", \"loser\": \"test-loser\", \"match_id\": \"test-match-id\"}"))
@@ -31,4 +34,12 @@ public final class ResultsControllerTest {
         verify(this.resultRepository).save(any(Result.class));
     }
 
+    @Test
+    public void saveUnit() {
+        ResponseEntity<Result> response = this.resultsController.save(
+                new Result("test-winner", "test-loser", "test-match-id"));
+
+        assertEquals(HttpStatus.CREATED, response.getStatusCode());
+        verify(this.resultRepository).save(any(Result.class));
+    }
 }
