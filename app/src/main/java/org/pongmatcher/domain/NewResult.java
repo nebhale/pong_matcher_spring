@@ -2,20 +2,17 @@ package org.pongmatcher.domain;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class NewResult {
+public final class NewResult {
     @JsonProperty("winner")
-    private final String winnerId;
+    private volatile String winnerId;
 
     @JsonProperty("loser")
-    private final String loserId;
+    private volatile String loserId;
 
     @JsonProperty("match_id")
-    private final String matchId;
+    private volatile String matchId;
 
-    protected NewResult() {
-        this.winnerId = null;
-        this.loserId = null;
-        this.matchId = null;
+    NewResult() {
     }
 
     public String getWinnerId() {

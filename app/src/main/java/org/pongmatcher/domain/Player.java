@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
-public class Player {
+public final class Player {
     private String id;
     private MatchRepository matchRepository;
     private MatchRequestRepository matchRequestRepository;

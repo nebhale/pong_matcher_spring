@@ -2,13 +2,12 @@ package org.pongmatcher.domain;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class NewMatchRequest {
+public final class NewMatchRequest {
 
     @JsonProperty("player")
-    private final String requesterId;
+    private volatile String requesterId;
 
-    protected NewMatchRequest() {
-        this.requesterId = null;
+    NewMatchRequest() {
     }
 
     public String getRequesterId() {

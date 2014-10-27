@@ -6,21 +6,18 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Entity
-public class Result {
+public final class Result {
     @Id
-    private final String id;
+    private volatile String id;
 
-    private final String winnerId;
-    private final String loserId;
+    private volatile String winnerId;
+
+    private volatile String loserId;
 
     @JsonProperty("match_id")
-    private final String matchId;
+    private volatile String matchId;
 
-    protected Result() {
-        this.id = null;
-        this.winnerId = null;
-        this.loserId = null;
-        this.matchId = null;
+    Result() {
     }
 
     public Result(String id, String winnerId, String loserId, String matchId) {
